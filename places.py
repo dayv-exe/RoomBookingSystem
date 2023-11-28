@@ -1,17 +1,10 @@
 # THIS MODULE HANDLES PLACES LISTED ON THE APP
-from algo import LinearHashTable
+
 
 class Places:
     def __init__(self):
         # list of valid accommodation types
         self.ACCOMMODATION_TYPES = ["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"]
-
-    def test_it(self):
-        l_hash = LinearHashTable(num_of_buckets=len(self.ACCOMMODATION_TYPES))
-        for t in self.ACCOMMODATION_TYPES:
-            l_hash.put(key=t.replace(" ", ""), value=t)
-
-        print(l_hash)
 
     def valid_accommodation_type(self, user_input):
         # CHECKS IF THE ACCOMMODATION TYPE THE USERS HAS ENTERED CORRESPONDS WITH ANY VALID ACCOM. TYPE

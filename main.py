@@ -1,4 +1,4 @@
 from places import Places
 place = Places()
 
-place.test_it()
+place.add_new_place()
