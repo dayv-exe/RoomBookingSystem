@@ -1,4 +1,7 @@
 # STORES ALL THE DATA STRUCTURE ALGORITHMS TO BE USED IN THE PROJECT
+import csv
+import os.path
+
 
 # region TYPE VALIDATION
 def is_integer(user_input):
@@ -9,6 +12,7 @@ def is_integer(user_input):
 
     return user_input
 # endregion
+
 
 # region SORTING ALGORITHMS
 def sort_array(array, start, end):
@@ -65,4 +69,20 @@ def binary_search(the_list, search_term):
 
     return found_term_index
 
+# endregion
+
+
+# region FOR CSV
+def initialize_file(file_path, headers):
+    # TO CREATE A NEW CSV FILE WITH HEADER
+    # only if file does not already exist
+    if os.path.isfile(file_path):
+        return
+    with open(file_path, "w") as file:
+        file.write(f"{headers}")
+
+
+def add_to(file_path, data):
+    with open(file_path, "a") as file:
+        file.write(f"\n{data}")
 # endregion

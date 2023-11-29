@@ -1,10 +1,13 @@
 # THIS MODULE HANDLES PLACES LISTED ON THE APP
+import algo
 from algo import sort_array
 from algo import binary_search
 from algo import is_integer
 
 
 class Places:
+    PLACES_PATH = "data/places.csv"
+
     def __init__(self):
         # list of valid accommodation types
         self.ACCOMMODATION_TYPES = sort_array(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"], 0, 16)
@@ -58,3 +61,6 @@ class Places:
         np_price_per_night = input(f"Lastly, how much would {np_name} cost per night:\n")
         while not is_integer(np_price_per_night):
             np_price_per_night = input(f"Please enter a number greater than 0 for {np_name}'s price per night\n")
+
+        algo.add_to(self.PLACES_PATH, f"{np_name}, {np_type}, {np_address},{np_available_rooms}, {np_price_per_night}")
+        print(f"Successfully added {np_name} to list")
