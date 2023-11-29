@@ -1,3 +1,6 @@
 name, type, address, available_rooms, price
 home,2,jos,6,1
 home+,1,jos+,+100,-100
+blue box,1,southampton,25,650
+as,+8,-9,-9876543,-98765
+white box,1,asfsdgsd,125134,412

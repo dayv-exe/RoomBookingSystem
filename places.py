@@ -72,5 +72,5 @@ class Places:
             np_price_per_night = input(f"Please enter a number greater than 0 for {np_name}'s price per night\n")
 
         # to store the new accommodation
-        storage.append_data(self.PLACES_PATH, f"{np_name.lower()},{np_type},{np_address.lower()},{np_available_rooms},{np_price_per_night}")
+        storage.append_data(self.PLACES_PATH, f"{np_name.lower()},{np_type},{np_address.lower()},{abs(int(np_available_rooms))},{abs(int(np_price_per_night))}")
         print(f"Successfully added {np_name} to list")
