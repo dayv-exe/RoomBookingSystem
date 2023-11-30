@@ -1,5 +1,13 @@
 {
-  "places": [],
+  "places": [
+    {
+      "name": "Green Cube",
+      "type": "14",
+      "address": "joS",
+      "available_rooms": "1",
+      "cost_per_night": "10000"
+    }
+  ],
   "inquires": [],
   "bookings": []
 }

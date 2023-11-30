@@ -1,7 +1,6 @@
 # THIS MODULE HANDLES PLACES LISTED ON THE APP
-from algo import sort
-from algo import type_validation
-from algo import search
+from functions import type_validation, sort, search
+from classes.place import Place
 
 
 PLACES_PATH = "data/data.json"  # the file path for places
@@ -63,5 +62,7 @@ def add_new_place():
         np_price_per_night = input(f"Please enter a number greater than 0 for {np_name}'s price per night\n")
 
     # to store the new accommodation
+    new_place = Place(np_name)
+    new_place.add_to_db(np_type, np_address, np_available_rooms, np_price_per_night)
 
     print(f"Successfully added {np_name} to list")
