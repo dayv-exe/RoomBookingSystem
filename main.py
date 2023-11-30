@@ -1,3 +1,3 @@
-import places
+import storage
 
-places.add_new_place()
+storage.init_db()
