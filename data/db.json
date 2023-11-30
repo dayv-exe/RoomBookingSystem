@@ -1,11 +1,32 @@
 {
   "places": [
     {
-      "name": "Green Cube",
-      "type": "14",
-      "address": "joS",
-      "available_rooms": "1",
-      "cost_per_night": "10000"
+      "name": "aaa",
+      "type": "1",
+      "address": "sasda",
+      "available_rooms": "12312",
+      "cost_per_night": "123"
+    },
+    {
+      "name": "ggg",
+      "type": "3",
+      "address": "213",
+      "available_rooms": "2131",
+      "cost_per_night": "123"
+    },
+    {
+      "name": "rrr",
+      "type": "1",
+      "address": "asfasd",
+      "available_rooms": "1231",
+      "cost_per_night": "123"
+    },
+    {
+      "name": "lll",
+      "type": "3",
+      "address": "asdas",
+      "available_rooms": "312",
+      "cost_per_night": "123"
     }
   ],
   "inquires": [],

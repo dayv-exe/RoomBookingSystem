@@ -1,4 +1,5 @@
 # THIS MODULE HANDLES PLACES LISTED ON THE APP
+import storage
 from functions import type_validation, sort, search
 from classes.place import Place
 
@@ -27,15 +28,20 @@ def valid_accommodation_type(user_input):
 def add_new_place():
     # prompts user to enter the name, accommodation type, address, available rooms, and cost per night of stay for a new place they want to add
 
+    # get list of places in db and sorts them according to name
+    existing_places = storage.load_data('places')
+    existing_places = sort.sort_places_array(existing_places, 'name', 0, len(existing_places) - 1)
+
     # initial prompt to prepare the user
     input("We will need a few details about the place\nlike name, accommodation type, address, available rooms, and cost per night of stay.\nPress enter to continue")
     print("\n")
 
     # to get a valid name longer than 1 char and that does not already exist
     np_name = input("Please enter a name for this new place:\n")
-    while len(np_name) < 2:
-        np_name = input("The name you entered is not valid or has already been used, try another:\n")
 
+    # searches sorted list from earlier to see if name user entered already exists
+    while len(np_name) < 2 or search.binary_search_places(existing_places, np_name.lower(), 'name') != -1:
+        np_name = input("The name you entered is not valid or has already been used, try another:\n")
     # to print out a list of valid accommodation types and prompt the user to select
     type_index = 0
     for t in ACCOMMODATION_TYPES:

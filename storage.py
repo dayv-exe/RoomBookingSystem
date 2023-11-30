@@ -1,16 +1,16 @@
 import json
 import os
 
-DATA_PATH = "./data/db.json"
-DATA_DIR_PATH = "./data"
-EMPTY_DB = {'places': [], 'inquires': [], 'bookings': []}
+_DATA_PATH = "./data/db.json"
+_DATA_DIR_PATH = "./data"
+_EMPTY_DB = {'places': [], 'inquires': [], 'bookings': []}
 
 
-def test_storage():
+def _test_storage():
     # try reading and writing from the file, if it fails then file is corrupt
     # delete old file and write new one if the user wants to
     try:
-        dump_data(load_db())
+        _dump_data(_load_db())
         return True  # if successful
     except (PermissionError, FileNotFoundError, json.JSONDecodeError) as e:
         print("DATABASE FILE IS CORRUPT!!!")
@@ -19,7 +19,7 @@ def test_storage():
             user_input = input("**tip:choose N to see json error message**\nDo you want to clear program cache? (Y/N)\n")
 
         if user_input.lower() == "y":
-            os.remove(DATA_PATH)
+            os.remove(_DATA_PATH)
             init_db()
             print("Please run the program again.")
         else:
@@ -31,34 +31,34 @@ def test_storage():
 def init_db():
     # creates a db.json file and dir if it doesn't already exist
 
-    if not os.path.exists(DATA_DIR_PATH):
-        os.makedirs(DATA_DIR_PATH)
+    if not os.path.exists(_DATA_DIR_PATH):
+        os.makedirs(_DATA_DIR_PATH)
 
-    if not os.path.isfile(DATA_PATH):
-        with open(DATA_PATH, 'w') as file:
+    if not os.path.isfile(_DATA_PATH):
+        with open(_DATA_PATH, 'w') as file:
             # Dump the data into the new JSON file
-            json.dump(EMPTY_DB, file, indent=2)
+            json.dump(_EMPTY_DB, file, indent=2)
     else:
         # if database already exists then check for errors before program starts
-        test_storage()
+        _test_storage()
 
 
-def load_db():
+def _load_db():
     # loads up the entire db file
-    with open(DATA_PATH, 'r') as file:
+    with open(_DATA_PATH, 'r') as file:
         data = json.load(file)
         return data
 
 
-def dump_data(new_data):
+def _dump_data(new_data):
     # writes an entire db file
-    with open(DATA_PATH, 'w') as file:
+    with open(_DATA_PATH, 'w') as file:
         json.dump(new_data, file, indent=2)
 
 
 def save_data(data, dict_name):
     # Open the JSON file for writing
-    new_data = load_db()  # gets json data
+    new_data = _load_db()  # gets json data
 
     # new_data[dict_name].append(data)
     # region USING LOW QUALITY CODE TO ADD NEW DATA TO EXISTING ARRAY INSTEAD OF 'append()' AS IT IS A BUILT-IN FUNC
@@ -70,12 +70,24 @@ def save_data(data, dict_name):
     new_data[dict_name] = new_data_array
     # endregion
 
-    dump_data(new_data)  # adds modified data back to json file
+    _dump_data(new_data)  # adds modified data back to json file
+
+
+def load_data(dict_name):
+    # loads up arrays contained within given dict_name
+    new_data = _load_db()  # gets json data
+    return new_data[dict_name]
 
 
 def remove_data(dict_name, key, value):
+    # dict_name is the name of the dictionary data is stored in e.g. 'places'
+    # key is the key of the dictionary item to be removed
+    # value is the value of the dictionary item to be removed
+
+    # so remove_data from dict_name where key is {key} and value is {value} like sql
+
     # Open the JSON file for writing
-    new_data = load_db()
+    new_data = _load_db()
 
     # new_data[dict_name].remove(data)
     # region USING LOW QUALITY CODE TO REMOVE DATA FROM AN EXISTING ARRAY INSTEAD OF 'remove()' AS IT IS A BUILT-IN FUNC
@@ -96,4 +108,4 @@ def remove_data(dict_name, key, value):
         new_data[dict_name][i] = new_data_array[i]
     # endregion
 
-    dump_data(new_data)  # adds it back to json file
+    _dump_data(new_data)  # adds it back to json file
