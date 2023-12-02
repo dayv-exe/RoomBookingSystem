@@ -25,45 +25,26 @@ def valid_accommodation_type(user_input):
     return search.binary_search(ACCOMMODATION_TYPES, chosen_type) != -1
 
 
-def search_place():
-    # THIS FUNC RETURNS A PLACE AND ALL ITS DETAILS IF NAME USER PROVIDED MATCHES A NAME IN DB
-    # ELSE FUNC RETURNS 'None'
+def _print_place(place):
+    print(f"* {place['name'].upper()} *")
+    print(f"address: {place['address'].capitalize()}")
+    print(f"type: {ACCOMMODATION_TYPES[int(place['type']) - 1]}")
+    print(f"rooms available: {place['available_rooms']}")
+    print(f"Price per night: {place['cost_per_night']}\n")
 
-    # get list of places in db and sorts them according to name
-    existing_places = storage.load_data('places')
-    existing_places = sort.sort_places_array(existing_places, 'name', 0, len(existing_places) - 1)
 
-    while True:
-        place = input("Please enter the name of the place you want to search for:\n")
-        while len(place) < 2:
-            place = input("Please enter a VALID name for the place you want to search for:\n")
-        place_found = search.binary_search_places(existing_places, place, 'name')
-        if place_found != -1:
-            print(f"**FOUND**")
-            print(f"Name: {place_found['name']}")
-            print(f"Type: {place_found['type']}")
-            print(f"Address: {place_found['address']}")
-            print(f"Available rooms: {place_found['available_rooms']}")
-            print(f"Price per night: {place_found['cost_per_night']}")
-            retry = input(f"\nDo you want to search again? (Y/N)")
-            if retry.lower() == "n":
-                break
-
-        else:
-            retry = input("No results!\nTry again (Y/N)")
-            if retry.lower() == 'n':
-                break
+def _print_accom_types():
+    type_index = 0
+    for t in ACCOMMODATION_TYPES:
+        type_index += 1
+        print(f"{type_index}. {t}")
 
 
 def show_all_places():
     places = storage.load_data("places")
     sorted_places = sort.sort_places_array(places, 'name', 0, len(places) - 1)
-    for i in places:
-        print(f"* {i['name'].upper()} *")
-        print(f"address: {i['address'].capitalize()}")
-        print(f"type: {ACCOMMODATION_TYPES[int(i['type'])]}")
-        print(f"rooms available: {i['available_rooms']}")
-        print(f"Price per night: {i['cost_per_night']}\n")
+    for i in sorted_places:
+        _print_place(i)
 
 
 def add_new_place():
@@ -84,10 +65,7 @@ def add_new_place():
     while len(np_name) < 2 or search.binary_search_places(existing_places, np_name.lower(), 'name') != -1:
         np_name = input("The name you entered is not valid or has already been used, try another:\n")
     # to print out a list of valid accommodation types and prompt the user to select
-    type_index = 0
-    for t in ACCOMMODATION_TYPES:
-        type_index += 1
-        print(f"{type_index}. {t}")
+    _print_accom_types()
     print(f"What type of place would {np_name} be?")
     np_type = ""
     while not valid_accommodation_type(np_type):
@@ -113,3 +91,29 @@ def add_new_place():
     new_place.add_to_db(np_type, np_address.lower(), np_available_rooms, np_price_per_night)
 
     return f"Successfully added {np_name} to list"
+
+
+def search_place_by_name():
+    # THIS FUNC RETURNS A PLACE AND ALL ITS DETAILS IF NAME USER PROVIDED MATCHES A NAME IN DB
+    # ELSE FUNC RETURNS 'None'
+
+    # get list of places in db and sorts them according to name
+    existing_places = storage.load_data('places')
+    existing_places = sort.sort_places_array(existing_places, 'name', 0, len(existing_places) - 1)
+
+    while True:
+        place = input("Please enter the name of the place you want to search for:\n")
+        while len(place) < 2:
+            place = input("Please enter a VALID name for the place you want to search for:\n")
+        place_found = search.binary_search_places(existing_places, place, 'name')
+        if place_found != -1:
+            print(f"FOUND:\n")
+            _print_place(place_found)
+            retry = input(f"\nDo you want to search again? (Y/N)")
+            if retry.lower() == "n":
+                break
+
+        else:
+            retry = input("No results!\nTry again (Y/N)")
+            if retry.lower() == 'n':
+                break
