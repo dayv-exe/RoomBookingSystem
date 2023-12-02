@@ -27,6 +27,20 @@
       "address": "city of london",
       "available_rooms": "100",
       "cost_per_night": "05"
+    },
+    {
+      "name": "home",
+      "type": "1",
+      "address": "jos",
+      "available_rooms": "6",
+      "cost_per_night": "1"
+    },
+    {
+      "name": "white box",
+      "type": "14",
+      "address": "devon",
+      "available_rooms": "1",
+      "cost_per_night": "250"
     }
   ],
   "inquires": [],

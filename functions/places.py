@@ -9,7 +9,7 @@ ACCOMMODATION_TYPES = sort.sort_array(["Hotel", "Hostel", "Bed and breakfast", "
 
 
 def valid_accommodation_type(user_input):
-    # CHECKS IF THE ACCOMMODATION TYPE THE USERS HAS ENTERED CORRESPONDS WITH ANY VALIDACCOM. TYPE
+    # CHECKS IF THE ACCOMMODATION TYPE THE USERS HAS ENTERED CORRESPONDS WITH ANY VALID ACCOM. TYPE
 
     # type validation
     user_input = type_validation.is_integer(user_input)
@@ -42,7 +42,8 @@ def _print_accom_types():
 
 def show_all_places():
     places = storage.load_data("places")
-    sorted_places = sort.sort_places_array(places, 'name', 0, len(places) - 1)
+    # sorted_places = sort.sort_places_array(places, 'name', 0, len(places) - 1)
+    sorted_places = sort.sort_array(places, 0, len(places) - 1, 'name')
     for i in sorted_places:
         _print_place(i)
 
@@ -52,7 +53,7 @@ def add_new_place():
 
     # get list of places in db and sorts them according to name
     existing_places = storage.load_data('places')
-    existing_places = sort.sort_places_array(existing_places, 'name', 0, len(existing_places) - 1)
+    existing_places = sort.sort_array(existing_places, 0, len(existing_places) - 1, 'name')
 
     # initial prompt to prepare the user
     input("We will need a few details about the place\nlike name, accommodation type, address, available rooms, and cost per night of stay.\nPress enter to continue")
@@ -99,7 +100,7 @@ def search_place_by_name():
 
     # get list of places in db and sorts them according to name
     existing_places = storage.load_data('places')
-    existing_places = sort.sort_places_array(existing_places, 'name', 0, len(existing_places) - 1)
+    existing_places = sort.sort_array(existing_places, 0, len(existing_places) - 1, 'name')
 
     while True:
         place = input("Please enter the name of the place you want to search for:\n")

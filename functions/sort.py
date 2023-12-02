@@ -1,37 +1,42 @@
 # region SORTING ALGORITHMS
-def sort_array(array, start, end):
+def depreciated_sort_array(array, start, end):
     # uses QUICK SORT algorithm to sort an array
     if end > start:
-        pivot = _hoare_partition(array, start, end)
-        sort_array(array, start, pivot - 1)
-        sort_array(array, pivot + 1, end)
+        pivot = _depreciated_hoare_partition(array, start, end)
+        depreciated_sort_array(array, start, pivot - 1)
+        depreciated_sort_array(array, pivot + 1, end)
 
     return array
 
 
-def sort_places_array(array, key, start, end):
+def sort_array(array, start, end, key=None):
     # uses QUICK SORT algorithm to sort an array
-    # key allows algorithm to lok into values in a dictionary which is what places is stored as
     if end > start:
-        pivot = _hoare_partition_places(array, key, start, end)
-        sort_places_array(array, key, start, pivot - 1)
-        sort_places_array(array, key, pivot + 1, end)
+        pivot = _hoare_partition(array, start, end, key)
+        sort_array(array, start, pivot - 1, key)
+        sort_array(array, pivot + 1, end, key)
 
     return array
 
 
-def _hoare_partition_places(array, key, start, end):
-    # key allows algorithm to lok into values in a dictionary which is what places is stored as
+def _hoare_partition(array, start, end, key):
+    # key allows algorithm to look into values in a dictionary which is what places are stored as
     i = start
     j = end
     pivot = array[(start + end) // 2]
 
+    def get_array_index(array_index, the_key):
+        # to allow hoare partition to be used whether 'key' is provided or not
+        return array_index if key is None else array_index[the_key]
+
     while j > i:
 
-        while array[i][key] < pivot[key]:
+        pivot_ = pivot if key is None else pivot[key]
+        while get_array_index(array[i], key) < pivot_:
             i += 1
 
-        while array[j][key] > pivot[key]:
+        pivot_ = pivot if key is None else pivot[key]
+        while get_array_index(array[j], key) > pivot_:
             j -= 1
 
         if i < j:
@@ -40,7 +45,7 @@ def _hoare_partition_places(array, key, start, end):
             return j
 
 
-def _hoare_partition(array, start, end):
+def _depreciated_hoare_partition(array, start, end):
     i = start
     j = end
     pivot = array[(start + end) // 2]
@@ -63,7 +68,7 @@ def _hoare_partition(array, start, end):
 
 def filter_places_by(places, search_term, attr='type'):
     # FILTER BY ATTRIBUTE USES HOARE PARTITION TO SORT THE LIST OF PLACES, ATTR COULD BE TYPE, ADDRESS
-    # THE HOARE PARTITION THIS TIME IS MODIFIED TO PLACE THE PLACES WITH THE ATTRIBUTE WE ARE LOKING FOR AT THE START OF THE SORTED LIST
+    # THE HOARE PARTITION THIS TIME IS MODIFIED TO PLACE THE PLACES WITH THE ATTRIBUTE WE ARE LOOKING FOR AT THE START OF THE SORTED LIST
 
     pass
 # endregion
