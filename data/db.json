@@ -2,45 +2,59 @@
   "places": [
     {
       "name": "blue box",
-      "type": "1",
+      "accom_type": "1",
       "address": "southampton",
       "available_rooms": "15",
-      "cost_per_night": "30"
-    },
-    {
-      "name": "green box",
-      "type": "16",
-      "address": "porstmouth",
-      "available_rooms": "2",
-      "cost_per_night": "100"
+      "cost_per_night": "65"
     },
     {
       "name": "aldi",
-      "type": "4",
+      "accom_type": "3",
       "address": "london",
       "available_rooms": "1",
-      "cost_per_night": "5"
+      "cost_per_night": "1"
     },
     {
-      "name": "buckignham palace",
-      "type": "3",
-      "address": "city of london",
-      "available_rooms": "100",
-      "cost_per_night": "05"
+      "name": "green box",
+      "accom_type": "16",
+      "address": "milton keynes",
+      "available_rooms": "1",
+      "cost_per_night": "100"
     },
     {
       "name": "home",
-      "type": "1",
+      "accom_type": "1",
       "address": "jos",
       "available_rooms": "6",
       "cost_per_night": "1"
     },
     {
-      "name": "white box",
-      "type": "14",
-      "address": "devon",
+      "name": "buckignham palace",
+      "accom_type": "14",
+      "address": "city of london",
       "available_rooms": "1",
-      "cost_per_night": "250"
+      "cost_per_night": "199"
+    },
+    {
+      "name": "apalacveas",
+      "accom_type": "1",
+      "address": "dundee",
+      "available_rooms": "1",
+      "cost_per_night": "1"
+    },
+    {
+      "name": "chantry",
+      "accom_type": "6",
+      "address": "southampton",
+      "available_rooms": "100",
+      "cost_per_night": "2"
+    },
+    {
+      "name": "afsdsddas",
+      "accom_type": "17",
+      "address": "aisle of man",
+      "available_rooms": "1",
+      "cost_per_night": "900"
     }
   ],
   "inquires": [],

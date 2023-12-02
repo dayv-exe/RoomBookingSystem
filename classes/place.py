@@ -12,7 +12,7 @@ class Place:
     def add_to_db(self, accom_type, address, rooms, price):
         place_data = {
             'name': self.name,
-            'type': accom_type,
+            'accom_type': accom_type,
             'address': address,
             'available_rooms': rooms,
             'cost_per_night': price
