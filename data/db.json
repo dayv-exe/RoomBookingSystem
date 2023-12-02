@@ -1,46 +1,32 @@
 {
   "places": [
     {
-      "name": "aaa",
-      "type": "1",
-      "address": "sasda",
-      "available_rooms": "12312",
-      "cost_per_night": "123"
-    },
-    {
-      "name": "ggg",
-      "type": "3",
-      "address": "213",
-      "available_rooms": "2131",
-      "cost_per_night": "123"
-    },
-    {
-      "name": "rrr",
-      "type": "1",
-      "address": "asfasd",
-      "available_rooms": "1231",
-      "cost_per_night": "123"
-    },
-    {
-      "name": "lll",
-      "type": "3",
-      "address": "asdas",
-      "available_rooms": "312",
-      "cost_per_night": "123"
-    },
-    {
-      "name": "Blue box",
+      "name": "blue box",
       "type": "1",
       "address": "southampton",
-      "available_rooms": "100",
+      "available_rooms": "15",
       "cost_per_night": "30"
     },
     {
       "name": "green box",
-      "type": "17",
-      "address": "brighton",
+      "type": "16",
+      "address": "porstmouth",
       "available_rooms": "2",
-      "cost_per_night": "90"
+      "cost_per_night": "100"
+    },
+    {
+      "name": "aldi",
+      "type": "4",
+      "address": "london",
+      "available_rooms": "1",
+      "cost_per_night": "5"
+    },
+    {
+      "name": "buckignham palace",
+      "type": "3",
+      "address": "city of london",
+      "available_rooms": "100",
+      "cost_per_night": "05"
     }
   ],
   "inquires": [],

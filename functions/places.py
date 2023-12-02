@@ -55,6 +55,17 @@ def search_place():
                 break
 
 
+def show_all_places():
+    places = storage.load_data("places")
+    sorted_places = sort.sort_places_array(places, 'name', 0, len(places) - 1)
+    for i in places:
+        print(f"* {i['name'].upper()} *")
+        print(f"address: {i['address'].capitalize()}")
+        print(f"type: {ACCOMMODATION_TYPES[int(i['type'])]}")
+        print(f"rooms available: {i['available_rooms']}")
+        print(f"Price per night: {i['cost_per_night']}\n")
+
+
 def add_new_place():
     # prompts user to enter the name, accommodation type, address, available rooms, and cost per night of stay for a new place they want to add
 
@@ -98,7 +109,7 @@ def add_new_place():
         np_price_per_night = input(f"Please enter a number greater than 0 for {np_name}'s price per night\n")
 
     # to store the new accommodation
-    new_place = Place(np_name)
-    new_place.add_to_db(np_type, np_address, np_available_rooms, np_price_per_night)
+    new_place = Place(np_name.lower())
+    new_place.add_to_db(np_type, np_address.lower(), np_available_rooms, np_price_per_night)
 
     return f"Successfully added {np_name} to list"

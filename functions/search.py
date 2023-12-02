@@ -33,15 +33,13 @@ def binary_search_places(the_list, search_term="", key=""):
     start_index = 0
     end_index = len(the_list) - 1
 
-    search_term = search_term.lower()
-
     while not found and end_index >= start_index:
         midpoint = (start_index + end_index) // 2
-        if the_list[midpoint][key].lower() == search_term:
+        if the_list[midpoint][key] == search_term:
             found = True
             found_term_index = midpoint
 
-        elif search_term < the_list[midpoint][key].lower():
+        elif search_term < the_list[midpoint][key]:
             end_index = midpoint - 1
 
         else:

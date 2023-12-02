@@ -2,4 +2,4 @@ from functions import places
 import storage
 
 storage.init_db()
-places.search_place()
+places.show_all_places()
