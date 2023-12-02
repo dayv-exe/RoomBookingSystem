@@ -47,6 +47,7 @@ def binary_search_places(the_list, search_term="", key=""):
         else:
             start_index = midpoint + 1
 
-    return found_term_index
+    # return found_term_index
+    return the_list[found_term_index] if found else -1
 
 # endregion

@@ -27,6 +27,20 @@
       "address": "asdas",
       "available_rooms": "312",
       "cost_per_night": "123"
+    },
+    {
+      "name": "Blue box",
+      "type": "1",
+      "address": "southampton",
+      "available_rooms": "100",
+      "cost_per_night": "30"
+    },
+    {
+      "name": "green box",
+      "type": "17",
+      "address": "brighton",
+      "available_rooms": "2",
+      "cost_per_night": "90"
     }
   ],
   "inquires": [],
