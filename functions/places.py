@@ -1,6 +1,6 @@
 # THIS MODULE HANDLES PLACES LISTED ON THE APP
 import storage
-from functions.sort import sort_array
+from functions.sort import binary_sort
 from functions.type_validation import is_integer
 from functions.search import binary_search
 from functions.search import binary_search
@@ -8,7 +8,7 @@ from classes.place import Place
 
 
 PLACES_PATH = "data/data.json"  # the file path for places
-ACCOMMODATION_TYPES = sort_array(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"], 0, 16)
+ACCOMMODATION_TYPES = binary_sort(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"])
 
 
 def valid_accommodation_type(user_input):
@@ -28,12 +28,16 @@ def valid_accommodation_type(user_input):
     return binary_search(ACCOMMODATION_TYPES, chosen_type) != -1
 
 
-def _print_place(place):
+def _print_place(place, additional_print_line=None):
     print(f"* {place['name'].upper()} *")
     print(f"address: {place['address'].capitalize()}")
     print(f"type: {ACCOMMODATION_TYPES[int(place['accom_type']) - 1]}")
     print(f"rooms available: {place['available_rooms']}")
-    print(f"Price per night: {place['cost_per_night']}\n")
+    print(f"Price per night: {place['cost_per_night']}")
+    if additional_print_line is not None:
+        print(f'{additional_print_line}')
+
+    print('\n')
 
 
 def _print_accom_types():
@@ -44,14 +48,18 @@ def _print_accom_types():
 
 
 def _get_sorted_places(sort_by='name'):
-    places = storage.load_data("places")
-    return sort_array(places, 0, len(places) - 1, sort_by)
+    return binary_sort(storage.load_data("places"), sort_by)
 
 
-def show_all_places():
+def show_all_places(show_booking_opt=False):
+    # show_booking_opt=true will add a number and a prompt to the accommodation prints for user to enter and book that accommodation
     places = _get_sorted_places()
+    current_index = 0
     for i in places:
-        _print_place(i)
+        _print_place(i, additional_print_line=f'*[Enter {current_index + 1} to book this place.]*' if show_booking_opt is True else None)
+        current_index += 1
+
+    return places
 
 
 def add_new_place():
@@ -120,18 +128,18 @@ def search_place_by_name():
                 break
 
 
-def filter_place_by_type():
+def search_place_by_type():
     input("To search for places by type, select accommodation type number from list.\nPress enter to continue.")
     _print_accom_types()
     search_term = input("Select an accommodation type from list to search for\n")
     while not valid_accommodation_type(search_term):
         search_term = input("Select a VALID accommodation type from list to search for\n")
 
-    num_found = _filter_place_by(search_term, 'accom_type')
+    num_found = _search_place_by(search_term, 'accom_type')
     choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
 
-def _filter_place_by(search_term, attr='accom_type'):
+def _search_place_by(search_term, attr='accom_type'):
     places = _get_sorted_places()
     num_found = 0
     for i in places:

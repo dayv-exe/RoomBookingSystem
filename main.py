@@ -1,5 +1,5 @@
-from functions import places
+from functions import places, bookings
 import storage
 
 storage.init_db()
-places.show_all_places()
+bookings.end_booking()

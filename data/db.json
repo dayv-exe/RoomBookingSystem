@@ -8,38 +8,10 @@
       "cost_per_night": "65"
     },
     {
-      "name": "aldi",
-      "accom_type": "3",
-      "address": "london",
-      "available_rooms": "1",
-      "cost_per_night": "1"
-    },
-    {
-      "name": "green box",
-      "accom_type": "16",
-      "address": "milton keynes",
-      "available_rooms": "1",
-      "cost_per_night": "100"
-    },
-    {
       "name": "home",
       "accom_type": "1",
       "address": "jos",
       "available_rooms": "6",
-      "cost_per_night": "1"
-    },
-    {
-      "name": "buckignham palace",
-      "accom_type": "14",
-      "address": "city of london",
-      "available_rooms": "1",
-      "cost_per_night": "199"
-    },
-    {
-      "name": "apalacveas",
-      "accom_type": "1",
-      "address": "dundee",
-      "available_rooms": "1",
       "cost_per_night": "1"
     },
     {
@@ -50,11 +22,39 @@
       "cost_per_night": "2"
     },
     {
-      "name": "afsdsddas",
-      "accom_type": "17",
-      "address": "aisle of man",
-      "available_rooms": "1",
-      "cost_per_night": "900"
+      "name": "loud house",
+      "accom_type": "1",
+      "address": "Boston",
+      "available_rooms": "3",
+      "cost_per_night": "1"
+    },
+    {
+      "name": "aldi",
+      "accom_type": "3",
+      "address": "london",
+      "available_rooms": 0,
+      "cost_per_night": "1"
+    },
+    {
+      "name": "buckignham palace",
+      "accom_type": "14",
+      "address": "city of london",
+      "available_rooms": 0,
+      "cost_per_night": "199"
+    },
+    {
+      "name": "white box",
+      "accom_type": "1",
+      "address": "dundee",
+      "available_rooms": 14,
+      "cost_per_night": "1"
+    },
+    {
+      "name": "green box",
+      "accom_type": "16",
+      "address": "milton keynes",
+      "available_rooms": 1,
+      "cost_per_night": "100"
     }
   ],
   "inquires": [],

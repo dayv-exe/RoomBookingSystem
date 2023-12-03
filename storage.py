@@ -79,6 +79,16 @@ def load_data(dict_name):
     return new_data[dict_name]
 
 
+def update_data(dict_name, key, value, new_data):
+    # dict_name is the name of the dictionary data is stored in e.g. 'places'
+    # key is the key of the dictionary item to be updated
+    # value is the value of the dictionary item to be updated
+
+    # so 'update_data' with 'new_data' in 'dict_name' where 'key' is 'value'
+    remove_data(dict_name, key, value)
+    save_data(new_data, dict_name)
+
+
 def remove_data(dict_name, key, value):
     # dict_name is the name of the dictionary data is stored in e.g. 'places'
     # key is the key of the dictionary item to be removed
@@ -96,14 +106,15 @@ def remove_data(dict_name, key, value):
     current_index = 0
     new_array_size = 0
     for i in new_data[dict_name]:
-        # print(f"key {key}, value {value}, found {i.get(key)}")
-        if i.get(key) != value:
+        # creates a new array and adds all the items from the old array to the new one except the item that is to be deleted
+        if i[key] != value:  # if current value matches provide val, add to new array
             new_array_size += 1
             new_data_array[current_index] = i
             current_index += 1
 
     # sets the old array size to be length of remaining items, then adds each item back to the old array (can not use dynamically sized array as it is built in function)
     new_data[dict_name] = [None] * new_array_size
+    # adds the data back one by one
     for i in range(0, new_array_size):
         new_data[dict_name][i] = new_data_array[i]
     # endregion

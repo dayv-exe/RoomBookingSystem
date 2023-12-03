@@ -1,10 +1,14 @@
 # region SORTING ALGORITHMS
-def sort_array(array, start, end, key=None):
+def binary_sort(array, key=None):
+    return _sort_array(array, 0, len(array) - 1, key)
+
+
+def _sort_array(array, start, end, key=None):
     # uses QUICK SORT algorithm to sort an array
     if end > start:
         pivot = _hoare_partition(array, start, end, key)
-        sort_array(array, start, pivot - 1, key)
-        sort_array(array, pivot + 1, end, key)
+        _sort_array(array, start, pivot - 1, key)
+        _sort_array(array, pivot + 1, end, key)
 
     return array
 
