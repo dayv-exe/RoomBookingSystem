@@ -3,7 +3,7 @@ import os
 
 _DATA_PATH = "./data/db.json"
 _DATA_DIR_PATH = "./data"
-_EMPTY_DB = {'places': [], 'inquires': [], 'bookings': []}
+_EMPTY_DB = {'places': [], 'enquiries': [], 'bookings': []}
 
 
 def _test_storage():

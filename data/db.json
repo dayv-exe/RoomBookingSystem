@@ -1,13 +1,6 @@
 {
   "places": [
     {
-      "name": "blue box",
-      "accom_type": "1",
-      "address": "southampton",
-      "available_rooms": "15",
-      "cost_per_night": "65"
-    },
-    {
       "name": "home",
       "accom_type": "1",
       "address": "jos",
@@ -55,8 +48,22 @@
       "address": "milton keynes",
       "available_rooms": 1,
       "cost_per_night": "100"
+    },
+    {
+      "name": "808 mafia crib",
+      "accom_type": "17",
+      "address": "atlanta",
+      "available_rooms": 999,
+      "cost_per_night": "2000"
+    },
+    {
+      "name": "blue box",
+      "accom_type": "1",
+      "address": "southampton",
+      "available_rooms": 15,
+      "cost_per_night": "65"
     }
   ],
-  "inquires": [],
+  "enquiries": [],
   "bookings": []
 }

@@ -1,5 +1,7 @@
-from functions import places, bookings
+from classes.place import Place
+from classes.booking import Booking
+from classes.enquiry import Enquiry
 import storage
 
 storage.init_db()
-bookings.end_booking()
+Booking.end()

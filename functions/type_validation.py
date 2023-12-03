@@ -7,7 +7,7 @@ def is_integer(user_input, num_range=None):
     except ValueError:
         return False
 
-    if range is not None:
+    if num_range is not None:
         # returns false if the number is an integer but does not fall within required range
         return user_input if num_range[0] <= user_input <= num_range[1] else False
 
