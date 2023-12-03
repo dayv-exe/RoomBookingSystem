@@ -32,6 +32,7 @@ class Booking:
         if int(place_data['available_rooms']) < 1:
             print(f"*{place_data['name'].upper()}* is fully booked!")
             Booking.make()
+            return
 
         print(f"You have selected *{place_data['name'].upper()}*")
 

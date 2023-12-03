@@ -1,9 +1,7 @@
 import storage
 from functions.sort import binary_sort
 from functions.search import binary_search
-
-from place import Place
-
+from classes.place import Place
 
 class Enquiry:
     def __init__(self, enquiry_id):

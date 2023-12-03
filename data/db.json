@@ -36,10 +36,24 @@
       "cost_per_night": "199"
     },
     {
-      "name": "white box",
+      "name": "blue box",
       "accom_type": "1",
-      "address": "dundee",
-      "available_rooms": 14,
+      "address": "southampton",
+      "available_rooms": 15,
+      "cost_per_night": "65"
+    },
+    {
+      "name": "808 mafia crib",
+      "accom_type": "17",
+      "address": "atlanta",
+      "available_rooms": 999,
+      "cost_per_night": "2000"
+    },
+    {
+      "name": "casa del loco",
+      "accom_type": "9",
+      "address": "bournemouth",
+      "available_rooms": 1000000,
       "cost_per_night": "1"
     },
     {
@@ -50,18 +64,11 @@
       "cost_per_night": "100"
     },
     {
-      "name": "808 mafia crib",
-      "accom_type": "17",
-      "address": "atlanta",
-      "available_rooms": 999,
-      "cost_per_night": "2000"
-    },
-    {
-      "name": "blue box",
+      "name": "white box",
       "accom_type": "1",
-      "address": "southampton",
-      "available_rooms": 15,
-      "cost_per_night": "65"
+      "address": "dundee",
+      "available_rooms": 14,
+      "cost_per_night": "1"
     }
   ],
   "enquiries": [],

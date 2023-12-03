@@ -4,4 +4,4 @@ from classes.enquiry import Enquiry
 import storage
 
 storage.init_db()
-Booking.end()
+Enquiry.make()
