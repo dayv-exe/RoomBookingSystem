@@ -1,10 +1,10 @@
 import storage
 from functions.search import binary_search
-from functions.sort import binary_sort
+from functions.sort import quick_sort
 from functions.type_validation import is_integer
 
 PLACES_PATH = "data/data.json"  # the file path for places
-ACCOMMODATION_TYPES = binary_sort(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"])
+ACCOMMODATION_TYPES = quick_sort(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"])
 
 
 class Place:
@@ -32,7 +32,7 @@ class Place:
         storage.update_data('places', 'name', self.name, new_place_data)
 
     def _get_self_data(self):
-        place_data = binary_sort(storage.load_data('places'), 'name')
+        place_data = quick_sort(storage.load_data('places'), 'name')
         place_data = binary_search(place_data, self.name, 'name')
         return place_data
 
@@ -55,7 +55,7 @@ class Place:
         print("\nSuccessfully removed booking!")
 
     @staticmethod
-    def make():
+    def create():
         # prompts user to enter the name, accommodation type, address, available rooms, and cost per night of stay for a new place they want to add
 
         # initial prompt to prepare the user
@@ -67,8 +67,8 @@ class Place:
 
         # searches sorted list from earlier to see if name user entered already exists
         existing_places = Place._get_sorted_places()
-        while len(np_name) < 2 or binary_search(existing_places, np_name.lower(), 'name') != -1:
-            np_name = input("The name you entered is not valid or has already been used, try another:\n")
+        while len(np_name) < 2:  # or binary_search(existing_places, np_name.lower(), 'name') != -1:
+            np_name = input("The name you entered is not valid, try another:\n")
         # to print out a list of valid accommodation types and prompt the user to select
         Place._print_accom_types()
         print(f"What type of place would {np_name} be?")
@@ -118,10 +118,11 @@ class Place:
             place = input("Please enter the name of the place you want to search for:\n")
             while len(place) < 2:
                 place = input("Please enter a VALID name for the place you want to search for:\n")
-            place_found = binary_search(existing_places, place, 'name')
+            place_found = binary_search(existing_places, place.lower(), 'name', True)
             if place_found != -1:
                 print(f"FOUND:\n")
-                Place._print(place_found)
+                for places in place_found:
+                    Place._print(places)
                 retry = input(f"\nDo you want to search again? (Y/N)")
                 if retry.lower() == "n":
                     break
@@ -146,7 +147,7 @@ class Place:
     def let_user_select(initial_prompt, print_func):
         # allows user to select a place
         # then it returns the place selected along with the list of places that was available for user to select
-        input("Press enter to see a list of places, then enter the number for the place you want to select.")
+        input("Press enter to see a list of places, then enter the number of the place you want to select.")
         places = print_func(True)
 
         sel_place = input(initial_prompt)
@@ -187,7 +188,7 @@ class Place:
 
     @staticmethod
     def _get_sorted_places(sort_by='name'):
-        return binary_sort(storage.load_data("places"), sort_by)
+        return quick_sort(storage.load_data("places"), sort_by)
 
     @staticmethod
     def _is_valid_accommodation_type(user_input):
