@@ -2,6 +2,7 @@ import storage
 from functions.search import binary_search
 from functions.sort import quick_sort
 from functions.type_validation import is_integer
+from functions.generate import db_id
 
 PLACES_PATH = "data/data.json"  # the file path for places
 ACCOMMODATION_TYPES = quick_sort(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"])
@@ -11,24 +12,23 @@ class Place:
     def __init__(self, name):
         self.name = name
 
-    def _place_type(self, accom_type, address, rooms, price):
+    def _place_type(self, place_id, accom_type, city, rooms, price):
         # for type safety for db storage
         return {
+            'place_id': place_id,
             'name': self.name,
             'accom_type': accom_type,
-            'address': address,
+            'city': city,
             'available_rooms': rooms,
             'cost_per_night': price
         }
 
-    def _add_to_db(self, accom_type, address, rooms, price):
-        place_data = self._place_type(accom_type, address, rooms, price)
+    def _add_to_db(self, place_id, accom_type, city, rooms, price):
+        place_data = self._place_type(place_id, accom_type, city, rooms, price)
         storage.save_data(place_data, 'places')
 
     def _change_rooms_available(self, place_data, new_rooms_available):
-        updated_rooms_available = new_rooms_available
-
-        new_place_data = self._place_type(place_data['accom_type'], place_data['address'], updated_rooms_available, place_data['cost_per_night'])
+        new_place_data = self._place_type(place_data['place_id'], place_data['accom_type'], place_data['city'], new_rooms_available, place_data['cost_per_night'])
         storage.update_data('places', 'name', self.name, new_place_data)
 
     def _get_self_data(self):
@@ -56,18 +56,16 @@ class Place:
 
     @staticmethod
     def create():
-        # prompts user to enter the name, accommodation type, address, available rooms, and cost per night of stay for a new place they want to add
+        # prompts user to enter the name, accommodation type, city, available rooms, and cost per night of stay for a new place they want to add
 
         # initial prompt to prepare the user
-        input("We will need a few details about the place\nlike name, accommodation type, address, available rooms, and cost per night of stay.\nPress enter to continue")
+        input("We will need a few details about the place\nlike name, accommodation type, city, available rooms, and cost per night of stay.\nPress enter to continue")
         print("\n")
 
         # to get a valid name longer than 1 char and that does not already exist
         np_name = input("Please enter a name for this new place:\n")
 
-        # searches sorted list from earlier to see if name user entered already exists
-        existing_places = Place._get_sorted_places()
-        while len(np_name) < 2:  # or binary_search(existing_places, np_name.lower(), 'name') != -1:
+        while len(np_name) < 2:
             np_name = input("The name you entered is not valid, try another:\n")
         # to print out a list of valid accommodation types and prompt the user to select
         Place._print_accom_types()
@@ -76,10 +74,10 @@ class Place:
         while not Place._is_valid_accommodation_type(np_type):
             np_type = input("*Select a valid accommodation type from list (enter number)*: ")
 
-        # to get an address for the accommodation
-        np_address = input(f"Where would {np_name} be located?:\n")
-        while len(np_address) < 2:
-            np_address = input(f"Please enter a valid address for {np_name}:\n")
+        # to get a city for the accommodation
+        np_city = input(f"Where would {np_name} be located?:\n")
+        while len(np_city) < 2:
+            np_city = input(f"Please choose a valid city for {np_name}:\n")
 
         # to set the initial available rooms for the accommodation
         np_available_rooms = input(f"How many rooms will be available initially?:\n")
@@ -93,7 +91,7 @@ class Place:
 
         # to store the new accommodation
         new_place = Place(np_name.lower())
-        new_place._add_to_db(np_type, np_address.lower(), np_available_rooms, np_price_per_night)
+        new_place._add_to_db(db_id('places', 'place_id'), np_type, np_city.lower(), np_available_rooms, np_price_per_night)
 
         return f"Successfully added {np_name} to list"
 
@@ -103,22 +101,23 @@ class Place:
         places = Place._get_sorted_places()
         current_index = 0
         for i in places:
-            Place._print(i, additional_print_line=f'*[Enter {current_index + 1} to select this place.]*' if show_opt is True else None)
+            Place._print(place=i, show_place_id=not show_opt, additional_print_line=f'*[Enter {current_index + 1} to select this place.]*' if show_opt is True else None)
             current_index += 1
 
         return places
 
     @staticmethod
-    def search_by_name():
-        # THIS FUNC RETURNS A PLACE AND ALL ITS DETAILS IF NAME USER PROVIDED MATCHES A NAME IN DB
+    def search():
+        # THIS FUNC RETURNS A PLACE AND ALL ITS DETAILS IF id USER PROVIDED MATCHES AN ID IN DB
         # ELSE FUNC RETURNS 'None'
-        existing_places = Place._get_sorted_places()
+        existing_places = Place._get_sorted_places('place_id')
 
         while True:
-            place = input("Please enter the name of the place you want to search for:\n")
-            while len(place) < 2:
-                place = input("Please enter a VALID name for the place you want to search for:\n")
-            place_found = binary_search(existing_places, place.lower(), 'name', True)
+            place_id = input("Please enter the id of the place you want to search for:\n")
+            while not is_integer(place_id):
+                place_id = input("Please enter a VALID id for the place you want to search for:\n")
+            place_found = binary_search(existing_places, int(place_id), 'place_id', True)
+
             if place_found != -1:
                 print(f"FOUND:\n")
                 for places in place_found:
@@ -168,16 +167,18 @@ class Place:
         return num_found
 
     @staticmethod
-    def _print(place, additional_print_line=None):
+    def _print(place, show_place_id=False, additional_print_line=None):
         print(f"* {place['name'].upper()} *")
-        print(f"address: {place['address'].capitalize()}")
+        if show_place_id:
+            print(f'id: {place["place_id"]}')
+        print(f"city: {place['city'].capitalize()}")
         print(f"type: {ACCOMMODATION_TYPES[int(place['accom_type']) - 1]}")
         print(f"rooms available: {place['available_rooms']}")
         print(f"Price per night: {place['cost_per_night']}")
         if additional_print_line is not None:
             print(f'{additional_print_line}')
 
-        print('\n')
+        print('')
 
     @staticmethod
     def _print_accom_types():

@@ -1,11 +1,23 @@
 # region SEARCHING ALGORITHMS
 
-def check_neighbour(the_list, current_index, search_term, move_left, key=None, found=[]):
+def check_right_neighbour(the_list, current_index, search_term, key=None):
+    return check_neighbour(the_list, current_index, search_term, 1, key, [])
+
+
+def check_left_neighbour(the_list, current_index, search_term, key=None):
+    return check_neighbour(the_list, current_index, search_term, -1, key, [])
+
+
+def check_neighbour(the_list, current_index, search_term, move, key=None, found=[]):
     # this func checks to see if the item left of the item in current index matches the search term provided
-    move = -1 if move_left is True else 1
+
+    if current_index + move < 0 or current_index + move > (len(the_list) - 1):
+        # if it is at end of list
+        return None
+
     neighbor_item = the_list[current_index + move] if key is None else the_list[current_index + move][key]
     if neighbor_item == search_term:
-        check_neighbour(the_list, current_index + move, search_term, move_left, key, found)
+        check_neighbour(the_list, current_index + move, search_term, move, key, found)
         found.append(the_list[current_index + move])
         return found
     else:
@@ -30,8 +42,8 @@ def binary_search(the_list, search_term, key=None, return_mult_results=False):
             # only check immediate item to the left or to the right, if the immediate item is a math then check the other immediate items until no more matches are found
             found = True
             found_term_index = midpoint
-            found_left = check_neighbour(the_list, midpoint, search_term, True, key)
-            found_right = check_neighbour(the_list, midpoint, search_term, False, key)
+            found_left = check_left_neighbour(the_list, midpoint, search_term, key)
+            found_right = check_right_neighbour(the_list, midpoint, search_term, key)
 
             found_items.append(the_list[found_term_index])
             if found_left is not None:

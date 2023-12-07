@@ -1,110 +1,37 @@
 {
   "places": [
     {
-      "name": "home",
-      "accom_type": "1",
-      "address": "jos",
-      "available_rooms": "6",
-      "cost_per_night": "1"
-    },
-    {
-      "name": "chantry",
-      "accom_type": "6",
-      "address": "southampton",
-      "available_rooms": "100",
-      "cost_per_night": "2"
-    },
-    {
-      "name": "loud house",
-      "accom_type": "1",
-      "address": "Boston",
-      "available_rooms": "3",
-      "cost_per_night": "1"
-    },
-    {
-      "name": "aldi",
-      "accom_type": "3",
-      "address": "london",
-      "available_rooms": 0,
-      "cost_per_night": "1"
-    },
-    {
-      "name": "buckignham palace",
-      "accom_type": "14",
-      "address": "city of london",
-      "available_rooms": 0,
-      "cost_per_night": "199"
-    },
-    {
+      "place_id": 1,
       "name": "blue box",
       "accom_type": "1",
-      "address": "southampton",
-      "available_rooms": 15,
+      "city": "southampton",
+      "available_rooms": "15",
       "cost_per_night": "65"
     },
     {
-      "name": "808 mafia crib",
-      "accom_type": "17",
-      "address": "atlanta",
-      "available_rooms": 999,
-      "cost_per_night": "2000"
-    },
-    {
-      "name": "casa del loco",
-      "accom_type": "9",
-      "address": "bournemouth",
-      "available_rooms": 1000000,
-      "cost_per_night": "1"
-    },
-    {
-      "name": "green box",
-      "accom_type": "16",
-      "address": "milton keynes",
+      "place_id": 2,
+      "name": "aldi",
+      "accom_type": "13",
+      "city": "southampton",
       "available_rooms": 1,
-      "cost_per_night": "100"
-    },
-    {
-      "name": "titans tower",
-      "accom_type": "17",
-      "address": "california",
-      "available_rooms": 98,
       "cost_per_night": "1"
     },
     {
-      "name": "white box",
+      "place_id": 3,
+      "name": "home",
       "accom_type": "1",
-      "address": "dundee",
-      "available_rooms": 14,
+      "city": "jos",
+      "available_rooms": "6",
       "cost_per_night": "1"
-    },
-    {
-      "name": "blue box",
-      "accom_type": "2",
-      "address": "southampton",
-      "available_rooms": "4",
-      "cost_per_night": "233"
     }
   ],
   "enquiries": [
     {
-      "enquiry_id": 517634,
-      "accom_name": "titans tower",
-      "enquiry": "do you serve breakfast in bed?",
-      "response": null
-    },
-    {
-      "enquiry_id": 182857,
-      "accom_name": "loud house",
-      "enquiry": "Is it really loud?",
+      "enquiry_id": 1,
+      "accom_name": "aldi",
+      "enquiry": "is there meat at the meat aisle even when the store is closed?",
       "response": null
     }
   ],
-  "bookings": [
-    {
-      "booking_id": 367133,
-      "accom_name": "titans tower",
-      "duration": "9",
-      "special_req": ""
-    }
-  ]
+  "bookings": []
 }

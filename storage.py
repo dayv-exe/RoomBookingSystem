@@ -1,5 +1,6 @@
 import json
 import os
+from functions.array import append
 
 _DATA_PATH = "./data/db.json"
 _DATA_DIR_PATH = "./data"
@@ -59,17 +60,7 @@ def _dump_data(new_data):
 def save_data(data, dict_name):
     # Open the JSON file for writing
     new_data = _load_db()  # gets json data
-
-    # new_data[dict_name].append(data)
-    # region USING LOW QUALITY CODE TO ADD NEW DATA TO EXISTING ARRAY INSTEAD OF 'append()' AS IT IS A BUILT-IN FUNC
-    # creates an array 1 length bigger than array loaded frm db and adds all the items from the db array including the new item parsed by user
-    new_data_array = [None] * (len(new_data[dict_name]) + 1)
-    for i in range(0, len(new_data_array) - 1):
-        new_data_array[i] = new_data[dict_name][i]
-    new_data_array[len(new_data[dict_name])] = data
-    new_data[dict_name] = new_data_array
-    # endregion
-
+    new_data[dict_name] = append(new_data[dict_name], data)
     _dump_data(new_data)  # adds modified data back to json file
 
 

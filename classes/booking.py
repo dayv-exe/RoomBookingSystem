@@ -3,6 +3,7 @@ import random
 from classes.place import Place
 from functions.search import binary_search
 from functions.type_validation import is_integer
+from functions import generate
 
 
 class Booking:
@@ -37,10 +38,7 @@ class Booking:
         print(f"You have selected *{place_data['name'].upper()}*")
 
         # to generate booking id
-        booking_id = random.randint(1, 999999)
-        while binary_search(storage.load_data('bookings'), search_term=booking_id, key='booking_id') != -1:
-            # if booking id already exists
-            booking_id = random.randint(1, 999999)  # try another random set of numbers
+        booking_id = generate.db_id('bookings', 'booking_id')
 
         # to get booking duration and any special request from user
         booking_duration = input('Please enter the duration of your stay (1 night minimum, 30 nights maximum):\n')

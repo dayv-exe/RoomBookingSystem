@@ -3,6 +3,7 @@ import random
 from functions.sort import quick_sort
 from functions.search import binary_search
 from classes.place import Place
+from functions import generate
 
 
 class Enquiry:
@@ -54,10 +55,7 @@ class Enquiry:
         print(f"You have selected *{sel_place['name'].upper()}*")
 
         # generates random enquiry id
-        enquiry_id = random.randint(1, 999999)
-        while binary_search(storage.load_data('enquiries'), search_term=enquiry_id, key='enquiry_id') != -1:
-            # if enquiry id already exists
-            enquiry_id = random.randint(1, 999999)  # try another random set of numbers
+        enquiry_id = generate.db_id('enquiries', 'enquiry_id')
 
         enquiry = input("Please enter the enquiry you have about this place:\n")
 
@@ -67,6 +65,10 @@ class Enquiry:
         new_enquiry = Enquiry(enquiry_id)
         new_enquiry._add_to_db(sel_place['name'], enquiry)
 
-    def respond(self):
-        choice = Place.let_user_select("Please enter the number of the place you want to make enquiries on:\n", Place.show_all)
-        sel_place = choice['sel_place']
+    @staticmethod
+    def show_all():
+        pass
+
+    @staticmethod
+    def respond():
+        pass
