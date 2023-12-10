@@ -25,6 +25,10 @@ class Booking:
     def make():
         # allows user to select a place to book,
 
+        if len(storage.load_data('places')) < 1:
+            print(f"There are no places available for booking!")
+            return
+
         choice = Place.let_user_select("Enter the number of the place you want to book:\n", Place.show_all)
         place_data = choice['sel_place']
 
@@ -53,6 +57,10 @@ class Booking:
         # prints a list of bookings, user enters number that corresponds to a booking and ends it, increasing rooms available by 1
         # initial prompt to prepare the user
 
+        if len(storage.load_data('bookings')) < 1:
+            print(f"There are no bookings to end!")
+            return
+
         choice = Place.let_user_select("Please enter the number of the booking you want to remove:\n", Booking.show_all)
         selected_booking = choice['sel_place']
 
@@ -66,6 +74,10 @@ class Booking:
     def show_all(show_end_booking_opt=False):
         # show_booking_opt=true will add a number and a prompt to the accommodation prints for user to enter and book that accommodation
         bookings = storage.load_data('bookings')
+        if len(bookings) < 1:
+            print(f"There are no bookings yet!")
+            return
+
         current_index = 0
         for i in bookings:
             Booking._print(i, special_line=f"*[Enter {current_index + 1} to end this booking]*" if show_end_booking_opt else None)

@@ -46,6 +46,9 @@ class Enquiry:
     @staticmethod
     def make():
         # select place to make enquiry on
+        if len(storage.load_data('places')) < 1:
+            print(f"There are no places available to enquire on!")
+            return
 
         choice = Place.let_user_select("Please enter the number of the place you want to make enquiries on:\n", Place.show_all)
         sel_place = choice['sel_place']
@@ -66,8 +69,11 @@ class Enquiry:
     @staticmethod
     def show_all(show_opt=False):
         enquiries = storage.load_data('enquiries')
-        current_index = 0
+        if len(enquiries) < 1:
+            print(f"There are no enquiries yet!")
+            return
 
+        current_index = 0
         print('')
         for i in enquiries:
             Enquiry._print(i, None if not show_opt else f'*[enter {current_index + 1} to respond to this enquiry]*')
@@ -77,6 +83,10 @@ class Enquiry:
 
     @staticmethod
     def respond():
+        if len(storage.load_data('enquiries')) < 1:
+            print(f"There are no enquiries to respond to!")
+            return
+
         choice = Place.let_user_select("Please enter the number of the enquiry you want to respond to:\n", Enquiry.show_all, 'Press enter to see a list of enquires, then enter the number of the enquiry you want to select.')
         selected_enquiry = choice['sel_place']
 
@@ -89,8 +99,8 @@ class Enquiry:
 
     @staticmethod
     def _print(enquiry, special_line):
-        print(f"Customer asked: {enquiry['enquiry']}")
         print(f"for: *{enquiry['accom_name'].upper()}*")
+        print(f"Customer asked: {enquiry['enquiry']}")
         if enquiry['response'] is not None:
             print(f"host response: {enquiry['response']}")
         if special_line:

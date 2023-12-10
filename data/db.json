@@ -1,5 +1,66 @@
 {
-  "places": [],
-  "enquiries": [],
-  "bookings": []
+  "places": [
+    {
+      "place_id": 1,
+      "name": "blue box",
+      "accom_type": "1",
+      "city": "southampton",
+      "available_rooms": "15",
+      "cost_per_night": "65"
+    },
+    {
+      "place_id": 3,
+      "name": "chantry",
+      "accom_type": "6",
+      "city": "southampton",
+      "available_rooms": "100",
+      "cost_per_night": "40"
+    },
+    {
+      "place_id": 4,
+      "name": "the orchid",
+      "accom_type": "11",
+      "city": "bournemouth",
+      "available_rooms": "40",
+      "cost_per_night": "25"
+    },
+    {
+      "place_id": 5,
+      "name": "fairhaven court",
+      "accom_type": "1",
+      "city": "bournemouth",
+      "available_rooms": 14,
+      "cost_per_night": "50"
+    },
+    {
+      "place_id": 2,
+      "name": "aldi",
+      "accom_type": "3",
+      "city": "southampton",
+      "available_rooms": 1,
+      "cost_per_night": "1"
+    }
+  ],
+  "enquiries": [
+    {
+      "enquiry_id": 1,
+      "accom_name": "the orchid",
+      "enquiry": "do you serve breakfast???????",
+      "response": "yes we do serve breakfast, and it is included in your fee"
+    },
+    {
+      "enquiry_id": 2,
+      "accom_name": "blue box",
+      "enquiry": "is the box really blue?",
+      "response": "Yes, thats why we have called it blue box"
+    }
+  ],
+  "bookings": [
+    {
+      "booking_id": 1,
+      "accom_name": "fairhaven court",
+      "duration": "4",
+      "special_req": "can i get hot water for tea every morning?"
+    }
+  ]
 }

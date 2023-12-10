@@ -93,12 +93,16 @@ class Place:
         new_place = Place(np_name.lower())
         new_place._add_to_db(db_id('places', 'place_id'), np_type, np_city.lower(), np_available_rooms, np_price_per_night)
 
-        return f"Successfully added {np_name} to list"
+        print(f"Successfully added {np_name} to list")
 
     @staticmethod
     def show_all(show_opt=False):
         # show_booking_opt=true will add a number and a prompt to the accommodation prints for user to enter and book that accommodation
         places = Place._get_sorted_places()
+        if len(places) < 1:
+            print(f"There are no accommodations yet!")
+            return
+
         current_index = 0
         for i in places:
             Place._print(place=i, show_place_id=not show_opt, additional_print_line=f'*[Enter {current_index + 1} to select this place.]*' if show_opt is True else None)
@@ -111,6 +115,9 @@ class Place:
         # THIS FUNC RETURNS A PLACE AND ALL ITS DETAILS IF id USER PROVIDED MATCHES AN ID IN DB
         # ELSE FUNC RETURNS 'None'
         existing_places = Place._get_sorted_places('place_id')
+        if len(existing_places) < 1:
+            print(f"There are no places yet!")
+            return
 
         while True:
             place_id = input("Please enter the id of the place you want to search for:\n")
@@ -125,22 +132,33 @@ class Place:
                 retry = input(f"\nDo you want to search again? (Y/N)")
                 if retry.lower() == "n":
                     break
+                else:
+                    Place.search()
 
             else:
                 retry = input("No results!\nTry again (Y/N)")
                 if retry.lower() == 'n':
                     break
+                else:
+                    Place.search()
 
     @staticmethod
     def search_by_type():
+        if len(storage.load_data('places')) < 1:
+            print(f"There are no places yet!")
+            return
+
+        choice = 'y'
+
         input("To search for places by type, select accommodation type number from list.\nPress enter to continue.")
         Place._print_accom_types()
-        search_term = input("Select an accommodation type from list to search for\n")
-        while not Place._is_valid_accommodation_type(search_term):
-            search_term = input("Select a VALID accommodation type from list to search for\n")
+        while choice.lower() == 'y':
+            search_term = input("Select an accommodation type from list to search for\n")
+            while not Place._is_valid_accommodation_type(search_term):
+                search_term = input("Select a VALID accommodation type from list to search for\n")
 
-        num_found = Place._search_by(search_term, 'accom_type')
-        choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
+            num_found = Place._search_by(search_term, 'accom_type')
+            choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
     def let_user_select(initial_prompt, print_func, enter_prompt=None):

@@ -22,15 +22,19 @@ def show():
     if sel == 6:
         show_advanced()
     elif sel == 1:
+        _show_page_header('Make a booking')
         Booking.make()
         _return_to_main_menu_prompt()
     elif sel == 2:
+        _show_page_header('Make an enquiry')
         Enquiry.make()
         _return_to_main_menu_prompt()
     elif sel == 3:
+        _show_page_header('getting there')
         print("Nothing to see here!")
         _return_to_main_menu_prompt()
     elif sel == 4:
+        _show_page_header('available accommodations')
         Place.show_all()
         _return_to_main_menu_prompt()
     elif sel == 5:
@@ -51,18 +55,23 @@ def show_advanced():
 
     sel = int(sel)
     if sel == 11:
+        _show_page_header('New place')
         Place.create()
         _return_to_main_menu_prompt()
     elif sel == 12:
+        _show_page_header('Respond to enquiry')
         Enquiry.respond()
         _return_to_main_menu_prompt()
     elif sel == 13:
+        _show_page_header('end a booking')
         Booking.end()
         _return_to_main_menu_prompt()
     elif sel == 14:
+        _show_page_header('Bookings')
         Booking.show_all()
         _return_to_main_menu_prompt()
     elif sel == 15:
+        _show_page_header('Enquiries')
         Enquiry.show_all()
         _return_to_main_menu_prompt()
 
@@ -88,3 +97,7 @@ def show_search_menu():
 
 def _return_to_main_menu_prompt():
     input('\n[press enter to return to main menu]\n')
+
+
+def _show_page_header(page_title):
+    print(f'\n----- {page_title.capitalize()} -----')
