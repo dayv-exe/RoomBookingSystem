@@ -1,37 +1,5 @@
 {
-  "places": [
-    {
-      "place_id": 1,
-      "name": "blue box",
-      "accom_type": "1",
-      "city": "southampton",
-      "available_rooms": "15",
-      "cost_per_night": "65"
-    },
-    {
-      "place_id": 2,
-      "name": "aldi",
-      "accom_type": "13",
-      "city": "southampton",
-      "available_rooms": 1,
-      "cost_per_night": "1"
-    },
-    {
-      "place_id": 3,
-      "name": "home",
-      "accom_type": "1",
-      "city": "jos",
-      "available_rooms": "6",
-      "cost_per_night": "1"
-    }
-  ],
-  "enquiries": [
-    {
-      "enquiry_id": 1,
-      "accom_name": "aldi",
-      "enquiry": "is there meat at the meat aisle even when the store is closed?",
-      "response": null
-    }
-  ],
+  "places": [],
+  "enquiries": [],
   "bookings": []
 }

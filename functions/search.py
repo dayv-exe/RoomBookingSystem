@@ -8,9 +8,11 @@ def check_left_neighbour(the_list, current_index, search_term, key=None):
     return check_neighbour(the_list, current_index, search_term, -1, key, [])
 
 
-def check_neighbour(the_list, current_index, search_term, move, key=None, found=[]):
+def check_neighbour(the_list, current_index, search_term, move, key=None, found=None):
     # this func checks to see if the item left of the item in current index matches the search term provided
 
+    if found is None:
+        found = []
     if current_index + move < 0 or current_index + move > (len(the_list) - 1):
         # if it is at end of list
         return None

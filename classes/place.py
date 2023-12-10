@@ -143,10 +143,11 @@ class Place:
         choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
-    def let_user_select(initial_prompt, print_func):
+    def let_user_select(initial_prompt, print_func, enter_prompt=None):
         # allows user to select a place
         # then it returns the place selected along with the list of places that was available for user to select
-        input("Press enter to see a list of places, then enter the number of the place you want to select.")
+
+        input("Press enter to see a list of places, then enter the number of the place you want to select." if enter_prompt is None else enter_prompt)
         places = print_func(True)
 
         sel_place = input(initial_prompt)
@@ -169,12 +170,12 @@ class Place:
     @staticmethod
     def _print(place, show_place_id=False, additional_print_line=None):
         print(f"* {place['name'].upper()} *")
-        if show_place_id:
-            print(f'id: {place["place_id"]}')
         print(f"city: {place['city'].capitalize()}")
         print(f"type: {ACCOMMODATION_TYPES[int(place['accom_type']) - 1]}")
         print(f"rooms available: {place['available_rooms']}")
         print(f"Price per night: {place['cost_per_night']}")
+        if show_place_id:
+            print(f'id: {place["place_id"]}')
         if additional_print_line is not None:
             print(f'{additional_print_line}')
 

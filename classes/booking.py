@@ -1,7 +1,5 @@
 import storage
-import random
 from classes.place import Place
-from functions.search import binary_search
 from functions.type_validation import is_integer
 from functions import generate
 
