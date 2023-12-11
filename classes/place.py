@@ -119,7 +119,8 @@ class Place:
             print(f"There are no places yet!")
             return
 
-        while True:
+        retry = 'y'
+        while retry.lower() == 'y':
             place_id = input("Please enter the id of the place you want to search for:\n")
             while not is_integer(place_id):
                 place_id = input("Please enter a VALID id for the place you want to search for:\n")
@@ -130,17 +131,8 @@ class Place:
                 for places in place_found:
                     Place._print(places)
                 retry = input(f"\nDo you want to search again? (Y/N)")
-                if retry.lower() == "n":
-                    break
-                else:
-                    Place.search()
-
             else:
                 retry = input("No results!\nTry again (Y/N)")
-                if retry.lower() == 'n':
-                    break
-                else:
-                    Place.search()
 
     @staticmethod
     def search_by_type():
