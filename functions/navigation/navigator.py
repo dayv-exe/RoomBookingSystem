@@ -94,8 +94,6 @@ def init_graph():
 
     area_nodes = {'bassett': bassett, 'swaything': swaything, 'highfield': highfield, 'portswood': portswood, 'woolston': woolston, 'freemantle': freemantle, 'milbrook': milbrook, 'shirley': shirley, 'city center': city_center}
 
-    point_of_interest_nodes = {'university': university, 'stadium': stadium, 'ikea': ikea, 'hospital': hospital, 'solent_uni': solent_uni, 'shopping mall': shopping_mall}
-
     transport_hub_nodes = {'railway station': railway_station, 'bus station': bus_station}
 
     southampton.add_edge(bassett, swaything, 7)
