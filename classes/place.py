@@ -7,7 +7,7 @@ from functions.navigation.navigator import go_to
 
 PLACES_PATH = "data/data.json"  # the file path for places
 ACCOMMODATION_TYPES = quick_sort(["Hotel", "Hostel", "Bed and breakfast", "Apartment", "Guest house", "Dormitory", "Campsite", "Motel", "Cottage", "Resort", "Villa", "Inn", "Chalet", "Lodge", "Homestay", "Log cabin", "Glamping"])
-AREAS = ['bassett', 'swaything', 'highfield', 'portswood', 'woolston', 'freemantle', 'milbrook', 'shirley', 'city center']
+AREAS = quick_sort(['bassett', 'swaything', 'highfield', 'portswood', 'woolston', 'freemantle', 'milbrook', 'shirley', 'city center'])
 HUBS = ['railway station', 'bus station']
 
 
@@ -27,11 +27,11 @@ class Place:
         }
 
     def _add_to_db(self, place_id, accom_type, area, rooms, price):
-        place_data = self._place_type(place_id, accom_type, area, rooms, price)
+        place_data = self._place_type(int(place_id), int(accom_type), int(area), int(rooms), int(price))
         storage.save_data(place_data, 'places')
 
     def _change_rooms_available(self, place_data, new_rooms_available):
-        new_place_data = self._place_type(place_data['place_id'], place_data['accom_type'], place_data['area'], new_rooms_available, place_data['cost_per_night'])
+        new_place_data = self._place_type(int(place_data['place_id']), int(place_data['accom_type']), int(place_data['area']), int(new_rooms_available), int(place_data['cost_per_night']))
         storage.update_data('places', 'name', self.name, new_place_data)
 
     def _get_self_data(self):
@@ -46,9 +46,6 @@ class Place:
 
         print("Successfully completed booking!")
 
-    def show_bookings(self):
-        pass
-
     def unreserve_room(self):
         # increases rooms available by 1
         place_data = self._get_self_data()
@@ -59,18 +56,17 @@ class Place:
 
     @staticmethod
     def _get_area(area_index):
-        return quick_sort(AREAS)[area_index - 1]
+        return AREAS[area_index - 1]
 
     @staticmethod
     def _print_areas():
         cur_index = 0
-        areas = quick_sort(AREAS)
 
-        for area in areas:
+        for area in AREAS:
             print(f'{cur_index + 1}. {area.capitalize()}')
             cur_index += 1
 
-        return areas
+        return AREAS
 
     @staticmethod
     def _print_hubs():
@@ -97,34 +93,40 @@ class Place:
 
         while len(np_name) < 2:
             np_name = input("The name you entered is not valid, try another:\n")
+
         # to print out a list of valid accommodation types and prompt the user to select
+        print('')
         Place._print_accom_types()
         print(f"What type of place would {np_name} be?")
         np_type = ""
-        while not Place._is_valid_accommodation_type(np_type):
-            np_type = input("*Select a valid accommodation type from list (enter number)*: ")
+        while not is_integer(np_type, [1, len(ACCOMMODATION_TYPES)]):
+            np_type = input("*Select a valid accommodation type from list above (enter number)*: ")
+        print(f'You selected {ACCOMMODATION_TYPES[int(np_type) - 1]}')
 
         # to get an area for the accommodation
-        print('\n')
+        print('')
         areas = Place._print_areas()
         print(f"Where would {np_name} be located within Southampton?")
         np_area = ''
         while not is_integer(np_area, [1, len(areas)]):
-            np_area = input(f"*Select from list of areas in Southampton*: ")
+            np_area = input(f"*Select from list above of areas in Southampton (enter number)*: ")
+        print(f'You selected {AREAS[int(np_area) - 1]}')
 
         # to set the initial available rooms for the accommodation
+        print('')
         np_available_rooms = input(f"How many rooms will be available initially?:\n")
         while not is_integer(np_available_rooms):
             np_available_rooms = input(f"Please enter a number greater than 0 for initial rooms available at {np_name}:\n")
 
         # to set the price per night of the accommodation
+        print('')
         np_price_per_night = input(f"Lastly, how much would {np_name} cost per night:\n")
         while not is_integer(np_price_per_night):
             np_price_per_night = input(f"Please enter a number greater than 0 for {np_name}'s price per night\n")
 
         # to store the new accommodation
         new_place = Place(np_name.lower())
-        new_place._add_to_db(db_id('places', 'place_id'), np_type, int(np_area), np_available_rooms, np_price_per_night)
+        new_place._add_to_db(db_id('places', 'place_id'), np_type, np_area, np_available_rooms, np_price_per_night)
 
         print(f"Successfully added {np_name} to list")
 
@@ -140,6 +142,7 @@ class Place:
         for i in places:
             Place._print(place=i, show_place_id=not show_opt, additional_print_line=f'*[Enter {current_index + 1} to select this place.]*' if show_opt is True else None)
             current_index += 1
+            print('')
 
         return places
 
@@ -157,15 +160,17 @@ class Place:
             place_id = input("Please enter the id of the place you want to search for:\n")
             while not is_integer(place_id):
                 place_id = input("Please enter a VALID id for the place you want to search for:\n")
-            place_found = binary_search(existing_places, int(place_id), 'place_id', True)
+            place_found = Place._search_for(int(place_id), 'place_id')
+            num_found = len(place_found) if place_found != -1 else 0
 
-            if place_found != -1:
-                print(f"FOUND:\n")
-                for places in place_found:
-                    Place._print(places)
-                retry = input(f"\nDo you want to search again? (Y/N)")
-            else:
-                retry = input("No results!\nTry again (Y/N)")
+            if num_found > 0:
+                print('')
+                print('--- FOUND ---')
+                print('')
+                Place._print(place_found)
+
+            print('')
+            retry = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
     def search_by_type():
@@ -175,14 +180,26 @@ class Place:
 
         choice = 'y'
 
-        input("To search for places by type, select accommodation type number from list.\nPress enter to continue.")
+        input("To search for places by type, select accommodation type from list.\nPress enter to continue.")
+        print('')
         Place._print_accom_types()
         while choice.lower() == 'y':
-            search_term = input("Select an accommodation type from list to search for\n")
-            while not Place._is_valid_accommodation_type(search_term):
-                search_term = input("Select a VALID accommodation type from list to search for\n")
+            search_term = input("Select an accommodation type from list above to search for (enter number): ")
+            while not is_integer(search_term, [1, len(ACCOMMODATION_TYPES)]):
+                search_term = input("Select a VALID accommodation type from list above to search for (enter number): ")
+            print(f'You selected {ACCOMMODATION_TYPES[int(search_term) - 1]}')
 
-            num_found = Place._search_by(search_term, 'accom_type')
+            found = Place._search_for(int(search_term), 'accom_type', True)
+            num_found = len(found) if found != -1 else 0
+
+            if num_found > 0:
+                for place in found:
+                    print('')
+                    print('--- FOUND ---')
+                    print('')
+                    Place._print(place)
+
+            print('')
             choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
@@ -191,6 +208,7 @@ class Place:
         # then it returns the place selected along with the list of places that was available for user to select
 
         input("Press enter to see a list of places, then enter the number of the place you want to select." if enter_prompt is None else enter_prompt)
+        print('')
         places = print_func(True)
 
         sel_place = input(initial_prompt)
@@ -200,15 +218,10 @@ class Place:
         return {'places': places, 'sel_place': places[int(sel_place) - 1]}
 
     @staticmethod
-    def _search_by(search_term, attr='accom_type'):
-        places = Place._get_sorted_places()
-        num_found = 0
-        for i in places:
-            if i[attr] == search_term:
-                Place._print(i)
-                num_found += 1
-
-        return num_found
+    def _search_for(search_term, attr='name', return_mult_results=False):
+        places = Place._get_sorted_places(attr)
+        places = binary_search(places, search_term, attr, return_mult_results)
+        return places   # returns list of places if found, returns empty array if nothing is found
 
     @staticmethod
     def _print(place, show_place_id=False, additional_print_line=None):
@@ -221,8 +234,6 @@ class Place:
             print(f'id: {place["place_id"]}')
         if additional_print_line is not None:
             print(f'{additional_print_line}')
-
-        print('')
 
     @staticmethod
     def _print_accom_types():
@@ -250,7 +261,7 @@ class Place:
 
         # assign accommodation type
         chosen_type = ACCOMMODATION_TYPES[user_input - 1]
-        return binary_search(ACCOMMODATION_TYPES, chosen_type) != -1
+        return chosen_type
 
     @staticmethod
     def navigate_to():
@@ -268,10 +279,11 @@ class Place:
 
         print(f'You selected {hubs[int(choice) - 1]}')
 
+        print('')
         choice = Place.let_user_select("Please enter the number of the place you want to navigate to:\n", Place.show_all, 'Press enter to select end point from list of places.\n')
         sel_place = choice['sel_place']
 
-        input(f"Press enter to navigate from {sel_hub.capitalize()} to *{sel_place['name'].upper()}*")
+        input(f"Press enter to navigate from {sel_hub.capitalize()} to * {sel_place['name'].upper()} *")
 
         sel_area_index = sel_place['area']
         sel_area = Place._get_area(sel_area_index)
@@ -280,7 +292,7 @@ class Place:
         cur_index = 0
         for point in nav_route:
             if cur_index == len(nav_route) - 1:  # if this is last point in list of routes
-                print(f"-*{sel_place['name'].upper()}* ({point})")
+                print(f"-* {sel_place['name'].upper()} ({point}) *")
                 return
             print(f'-{point.capitalize()}')
             cur_index += 1

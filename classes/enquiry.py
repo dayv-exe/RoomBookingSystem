@@ -19,7 +19,7 @@ class Enquiry:
     def _enquiry_type(self, accom_name, enquiry, response):
         # to make sure required values are collected for db
         return {
-            'enquiry_id': self.enquiry_id,
+            'enquiry_id': int(self.enquiry_id),
             'accom_name': accom_name,
             'enquiry': enquiry,
             'response': response

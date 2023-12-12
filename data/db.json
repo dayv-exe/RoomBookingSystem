@@ -1,36 +1,63 @@
 {
   "places": [
     {
-      "place_id": 1,
-      "name": "blue box",
-      "accom_type": "1",
-      "area": 6,
-      "available_rooms": "15",
-      "cost_per_night": "65"
+      "place_id": 3,
+      "name": "lidl",
+      "accom_type": 3,
+      "area": 7,
+      "available_rooms": 3,
+      "cost_per_night": 1
     },
     {
       "place_id": 2,
-      "name": "chantry",
-      "accom_type": "6",
-      "area": 2,
-      "available_rooms": "100",
-      "cost_per_night": "30"
+      "name": "aldi",
+      "accom_type": 3,
+      "area": 6,
+      "available_rooms": 1,
+      "cost_per_night": 1
     },
     {
-      "place_id": 3,
-      "name": "travel lodge",
-      "accom_type": "11",
-      "area": 8,
-      "available_rooms": 99,
-      "cost_per_night": "20"
+      "place_id": 1,
+      "name": "blue box",
+      "accom_type": 1,
+      "area": 6,
+      "available_rooms": 14,
+      "cost_per_night": 65
+    },
+    {
+      "place_id": 4,
+      "name": "green box",
+      "accom_type": 17,
+      "area": 7,
+      "available_rooms": 15,
+      "cost_per_night": 99
     }
   ],
-  "enquiries": [],
+  "enquiries": [
+    {
+      "enquiry_id": 1,
+      "accom_name": "blue box",
+      "enquiry": "is the box really blue?",
+      "response": "yes idiot, why would we call it that if it wsa any other color????"
+    },
+    {
+      "enquiry_id": 2,
+      "accom_name": "blue box",
+      "enquiry": "will the program crash if i another more than 1 enquiry to the same place?",
+      "response": "no, as you can see"
+    },
+    {
+      "enquiry_id": 3,
+      "accom_name": "green box",
+      "enquiry": "how far is this place from the railway station?",
+      "response": "use the routing feature you idiot!"
+    }
+  ],
   "bookings": [
     {
       "booking_id": 1,
-      "accom_name": "travel lodge",
-      "duration": "7",
+      "accom_name": "blue box",
+      "duration": 30,
       "special_req": ""
     }
   ]
