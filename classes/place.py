@@ -27,14 +27,17 @@ class Place:
         }
 
     def _add_to_db(self, place_id, accom_type, area, rooms, price):
+        # to store place data in db
         place_data = self._place_type(int(place_id), int(accom_type), int(area), int(rooms), int(price))
         storage.save_data(place_data, 'places')
 
     def _change_rooms_available(self, place_data, new_rooms_available):
+        # to either reduce or increase the number of rooms available at a place in db
         new_place_data = self._place_type(int(place_data['place_id']), int(place_data['accom_type']), int(place_data['area']), int(new_rooms_available), int(place_data['cost_per_night']))
         storage.update_data('places', 'name', self.name, new_place_data)
 
     def _get_self_data(self):
+        # to get data on this instance of place class
         place_data = quick_sort(storage.load_data('places'), 'name')
         place_data = binary_search(place_data, self.name, 'name')
         return place_data
@@ -56,10 +59,12 @@ class Place:
 
     @staticmethod
     def _get_area(area_index):
+        # to get the name of an area from the index provided
         return AREAS[area_index - 1]
 
     @staticmethod
     def _print_areas():
+        # to print out a list of all the areas in soutampton available for user to select
         cur_index = 0
 
         for area in AREAS:
@@ -133,6 +138,7 @@ class Place:
     @staticmethod
     def show_all(show_opt=False):
         # show_booking_opt=true will add a number and a prompt to the accommodation prints for user to enter and book that accommodation
+        # prints all places in db
         places = Place._get_sorted_places()
         if len(places) < 1:
             print(f"There are no accommodations yet!")
@@ -155,8 +161,10 @@ class Place:
             print(f"There are no places yet!")
             return
 
+        # start search sequence
         retry = 'y'
         while retry.lower() == 'y':
+            # get place id from user
             place_id = input("Please enter the id of the place you want to search for:\n")
             while not is_integer(place_id):
                 place_id = input("Please enter a VALID id for the place you want to search for:\n")
@@ -164,17 +172,20 @@ class Place:
             num_found = len(place_found) if place_found != -1 else 0
 
             if num_found > 0:
+                # if 1 or more place matches id user provided
                 print('')
                 print('--- FOUND ---')
                 print('')
                 Place._print(place_found)
 
             print('')
+            # print progress prompt depending on whether match was found or not
             retry = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
     def search_by_type():
         if len(storage.load_data('places')) < 1:
+            # return if there are no places in db
             print(f"There are no places yet!")
             return
 
@@ -184,15 +195,18 @@ class Place:
         print('')
         Place._print_accom_types()
         while choice.lower() == 'y':
+            # allow user to select accommodation type from list
             search_term = input("Select an accommodation type from list above to search for (enter number): ")
             while not is_integer(search_term, [1, len(ACCOMMODATION_TYPES)]):
                 search_term = input("Select a VALID accommodation type from list above to search for (enter number): ")
             print(f'You selected {ACCOMMODATION_TYPES[int(search_term) - 1]}')
 
+            # search to see if places with chosen accommodation type exists in db
             found = Place._search_for(int(search_term), 'accom_type', True)
             num_found = len(found) if found != -1 else 0
 
             if num_found > 0:
+                # if they exist print them
                 for place in found:
                     print('')
                     print('--- FOUND ---')
@@ -200,6 +214,7 @@ class Place:
                     Place._print(place)
 
             print('')
+            # print progress prompt depending on if any places where found
             choice = input('No result.\nSearch again? (Y/N)') if num_found < 1 else input('Search again? (Y/N)')
 
     @staticmethod
@@ -219,12 +234,14 @@ class Place:
 
     @staticmethod
     def _search_for(search_term, attr='name', return_mult_results=False):
+        # to search for a place by given type and value
         places = Place._get_sorted_places(attr)
         places = binary_search(places, search_term, attr, return_mult_results)
         return places   # returns list of places if found, returns empty array if nothing is found
 
     @staticmethod
     def _print(place, show_place_id=False, additional_print_line=None):
+        # to neatly print a place
         print(f"* {place['name'].upper()} *")
         print(f"area: {Place._get_area(place['area']).capitalize()}")
         print(f"type: {ACCOMMODATION_TYPES[int(place['accom_type']) - 1]}")
@@ -237,6 +254,7 @@ class Place:
 
     @staticmethod
     def _print_accom_types():
+        # to print accommodation types available for user to select
         type_index = 0
         for t in ACCOMMODATION_TYPES:
             type_index += 1
@@ -244,6 +262,7 @@ class Place:
 
     @staticmethod
     def _get_sorted_places(sort_by='name'):
+        # sorts array of places and returns it
         return quick_sort(storage.load_data("places"), sort_by)
 
     @staticmethod
@@ -265,12 +284,15 @@ class Place:
 
     @staticmethod
     def navigate_to():
+        # to print all the nodes to visit from start point to end point of navigation
         if len(storage.load_data('places')) < 1:
+            # return if there are no places in db
             print(f"There are no places available to navigate to!")
             return
 
         input('Press enter to choose starting point\n')
 
+        # gets the start node
         hubs = Place._print_hubs()
         choice = input('Enter the number of the starting point you want to select: ')
         while not is_integer(choice, [1, len(hubs)]):
@@ -280,17 +302,20 @@ class Place:
         print(f'You selected {hubs[int(choice) - 1]}')
 
         print('')
+        # gets the end node
         choice = Place.let_user_select("Please enter the number of the place you want to navigate to:\n", Place.show_all, 'Press enter to select end point from list of places.\n')
         sel_place = choice['sel_place']
 
         input(f"Press enter to navigate from {sel_hub.capitalize()} to * {sel_place['name'].upper()} *")
 
+        # runs dijkstras algo
         sel_area_index = sel_place['area']
         sel_area = Place._get_area(sel_area_index)
         nav_route = go_to(sel_area.lower(), sel_hub.lower())
 
         cur_index = 0
         for point in nav_route:
+            # print all the nodes
             if cur_index == len(nav_route) - 1:  # if this is last point in list of routes
                 print(f"-* {sel_place['name'].upper()} ({point}) *")
                 return
