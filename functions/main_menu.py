@@ -30,8 +30,8 @@ def show():
         Enquiry.make()
         _return_to_main_menu_prompt()
     elif sel == 3:
-        _show_page_header('getting there')
-        print("Nothing to see here!")
+        _show_page_header('Navigation')
+        Place.navigate_to()
         _return_to_main_menu_prompt()
     elif sel == 4:
         _show_page_header('available accommodations')
@@ -80,7 +80,6 @@ def show_search_menu():
     print(f'\n*** SEARCH MENU ***')
     print(f'[Enter 21 to search for places by id.]')
     print(f'[Enter 22 to search for places by type.]')
-    print(f'[Enter 23 to search for places by name and address.]')
 
     sel = input('')
     while not is_integer(sel, [21, 22]):

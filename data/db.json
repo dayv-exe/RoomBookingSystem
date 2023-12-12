@@ -4,99 +4,34 @@
       "place_id": 1,
       "name": "blue box",
       "accom_type": "1",
-      "city": "southampton",
+      "area": 6,
       "available_rooms": "15",
       "cost_per_night": "65"
     },
     {
-      "place_id": 3,
+      "place_id": 2,
       "name": "chantry",
       "accom_type": "6",
-      "city": "southampton",
-      "available_rooms": "100",
-      "cost_per_night": "40"
-    },
-    {
-      "place_id": 4,
-      "name": "the orchid",
-      "accom_type": "11",
-      "city": "bournemouth",
-      "available_rooms": "40",
-      "cost_per_night": "25"
-    },
-    {
-      "place_id": 5,
-      "name": "fairhaven court",
-      "accom_type": "1",
-      "city": "bournemouth",
-      "available_rooms": 14,
-      "cost_per_night": "50"
-    },
-    {
-      "place_id": 6,
-      "name": "travel lodge",
-      "accom_type": "11",
-      "city": "bournemouth",
-      "available_rooms": "50",
-      "cost_per_night": "20"
-    },
-    {
-      "place_id": 7,
-      "name": "travel lodge",
-      "accom_type": "11",
-      "city": "southampton",
+      "area": 2,
       "available_rooms": "100",
       "cost_per_night": "30"
     },
     {
-      "place_id": 8,
-      "name": "epstien island",
-      "accom_type": "16",
-      "city": "pacific ocean",
-      "available_rooms": "100000",
-      "cost_per_night": "1"
-    },
-    {
-      "place_id": 2,
-      "name": "aldi",
-      "accom_type": "3",
-      "city": "southampton",
-      "available_rooms": 1,
-      "cost_per_night": "1"
+      "place_id": 3,
+      "name": "travel lodge",
+      "accom_type": "11",
+      "area": 8,
+      "available_rooms": 99,
+      "cost_per_night": "20"
     }
   ],
-  "enquiries": [
-    {
-      "enquiry_id": 1,
-      "accom_name": "the orchid",
-      "enquiry": "do you serve breakfast???????",
-      "response": "yes we do serve breakfast, and it is included in your fee"
-    },
-    {
-      "enquiry_id": 2,
-      "accom_name": "blue box",
-      "enquiry": "is the box really blue?",
-      "response": "Yes, thats why we have called it blue box"
-    },
-    {
-      "enquiry_id": 3,
-      "accom_name": "travel lodge",
-      "enquiry": "Can i extend my booking after it has been made?",
-      "response": "no unfortunately"
-    },
-    {
-      "enquiry_id": 4,
-      "accom_name": "epstien island",
-      "enquiry": "How can i get here?",
-      "response": "you'll need to be powerful, rich and famous first!!!"
-    }
-  ],
+  "enquiries": [],
   "bookings": [
     {
       "booking_id": 1,
-      "accom_name": "fairhaven court",
-      "duration": "4",
-      "special_req": "can i get hot water for tea every morning?"
+      "accom_name": "travel lodge",
+      "duration": "7",
+      "special_req": ""
     }
   ]
 }
