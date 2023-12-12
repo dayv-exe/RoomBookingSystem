@@ -8,6 +8,7 @@ _EMPTY_DB = {'places': [], 'enquiries': [], 'bookings': []}
 
 
 def _test_storage():
+    # db.json file issues can cause entire program to crash, try rectifying issues before program starts
     # try reading and writing from the file, if it fails then file is corrupt
     # delete old file and write new one if the user wants to
     try:

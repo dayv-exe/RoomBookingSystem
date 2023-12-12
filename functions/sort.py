@@ -45,15 +45,17 @@ def _hoare_partition(array, start, end, key):
 
 
 def _lomuto_partition(array, start, end, key):
-    pivot = array[end]
-    pivot_val = pivot if key is None else pivot[key]
+    # key allows algorithm to look into values in a dictionary which is what places are stored as
+    pivot = array[end]  # selects last item in array as pivot
+    pivot_val = pivot if key is None else pivot[key]  # check if key is provided meaning we are sorting dictionaries, key indicates what key in the dictionary algo should sort by
 
     i = start - 1
 
     for j in range(start, end):
         if _get_array_index(array[j], key) <= pivot_val:
+            # swap and move 1st finger if 2nd finger is less than or equal to pivot
             i += 1
             array[i], array[j] = array[j], array[i]
 
-    array[i + 1], array[end] = array[end], array[i + 1]
+    array[i + 1], array[end] = array[end], array[i + 1]  # set new pivot pos
     return i + 1

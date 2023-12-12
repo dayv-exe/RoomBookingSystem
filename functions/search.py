@@ -1,5 +1,7 @@
-# region SEARCHING ALGORITHMS
+from functions.array import append
 
+
+# region SEARCHING ALGORITHMS
 def check_right_neighbour(the_list, current_index, search_term, key=None):
     return check_neighbour(the_list, current_index, search_term, 1, key, [])
 
@@ -9,7 +11,10 @@ def check_left_neighbour(the_list, current_index, search_term, key=None):
 
 
 def check_neighbour(the_list, current_index, search_term, move, key=None, found=None):
-    # this func checks to see if the item left of the item in current index matches the search term provided
+    # to enable this version of binary search algo to return multiple results
+    # this func checks to see if the item left or right of the item in current index matches the search term provided
+    # since the array to be search will be sorted, all the duplicate items will be next to each other
+    # this func will check the neighbor of the item we are looking for to see if the neighbor is a duplicate of the search item and can return an array of all duplicates as a result
 
     if found is None:
         found = []
@@ -19,8 +24,10 @@ def check_neighbour(the_list, current_index, search_term, move, key=None, found=
 
     neighbor_item = the_list[current_index + move] if key is None else the_list[current_index + move][key]
     if neighbor_item == search_term:
+        # if neighbour is duplicate add to array
         check_neighbour(the_list, current_index + move, search_term, move, key, found)
-        found.append(the_list[current_index + move])
+        # found.append(the_list[current_index + move])
+        found = append(found, the_list[current_index + move])
         return found
     else:
         return None
@@ -47,14 +54,17 @@ def binary_search(the_list, search_term, key=None, return_mult_results=False):
             found_left = check_left_neighbour(the_list, midpoint, search_term, key)
             found_right = check_right_neighbour(the_list, midpoint, search_term, key)
 
-            found_items.append(the_list[found_term_index])
+            # found_items.append(the_list[found_term_index])
+            found_items = append(found_items, the_list[found_term_index])
             if found_left is not None:
                 for item in found_left:
-                    found_items.append(item)
+                    # found_items.append(item)
+                    found_items = append(found_items, item)
 
             if found_right is not None:
                 for item in found_right:
-                    found_items.append(item)
+                    # found_items.append(item)
+                    found_items = append(found_items, item)
 
         elif search_term < the_list_midpoint:
             end_index = midpoint - 1
