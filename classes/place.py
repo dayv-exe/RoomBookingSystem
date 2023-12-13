@@ -87,6 +87,7 @@ class Place:
 
     @staticmethod
     def create():
+        # TASK 1
         # prompts user to enter the name, accommodation type, area, available rooms, and cost per night of stay for a new place they want to add
 
         # initial prompt to prepare the user
@@ -191,8 +192,11 @@ class Place:
 
         choice = 'y'
 
+        # prompt to prepare user
         input("To search for places by type, select accommodation type from list.\nPress enter to continue.")
         print('')
+
+        # print out list of accomodation types for user to select from
         Place._print_accom_types()
         while choice.lower() == 'y':
             # allow user to select accommodation type from list
@@ -219,7 +223,7 @@ class Place:
 
     @staticmethod
     def let_user_select(initial_prompt, print_func, enter_prompt=None):
-        # allows user to select a place
+        # prints out a list of places then allows user to select any then returns the list of places it printed out
         # then it returns the place selected along with the list of places that was available for user to select
 
         input("Press enter to see a list of places, then enter the number of the place you want to select." if enter_prompt is None else enter_prompt)
@@ -235,8 +239,8 @@ class Place:
     @staticmethod
     def _search_for(search_term, attr='name', return_mult_results=False):
         # to search for a place by given type and value
-        places = Place._get_sorted_places(attr)
-        places = binary_search(places, search_term, attr, return_mult_results)
+        places = Place._get_sorted_places(attr)  # first sort by the attribute we are searching by
+        places = binary_search(places, search_term, attr, return_mult_results)  # then search for the value in sorted list
         return places   # returns list of places if found, returns empty array if nothing is found
 
     @staticmethod
@@ -267,6 +271,7 @@ class Place:
 
     @staticmethod
     def _is_valid_accommodation_type(user_input):
+        # DEPRICIATED METHOD
         # CHECKS IF THE ACCOMMODATION TYPE THE USERS HAS ENTERED CORRESPONDS WITH ANY VALID ACCOM. TYPE
 
         # type validation

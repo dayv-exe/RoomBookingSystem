@@ -48,7 +48,7 @@ def binary_search(the_list, search_term, key=None, return_mult_results=False):
         if the_list_midpoint == search_term:
             # to be able to return more than one result:
             # allow the algorithm to recursively compare the items to the left or right of the found term
-            # only check immediate item to the left or to the right, if the immediate item is a math then check the other immediate items until no more matches are found
+            # only check immediate item to the left or to the right, if the immediate item is a match then check the other immediate items until no more matches are found
             found = True
             found_term_index = midpoint
             found_left = check_left_neighbour(the_list, midpoint, search_term, key)

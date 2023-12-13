@@ -9,14 +9,6 @@
       "cost_per_night": 1
     },
     {
-      "place_id": 2,
-      "name": "aldi",
-      "accom_type": 3,
-      "area": 6,
-      "available_rooms": 1,
-      "cost_per_night": 1
-    },
-    {
       "place_id": 1,
       "name": "blue box",
       "accom_type": 1,
@@ -31,6 +23,14 @@
       "area": 7,
       "available_rooms": 15,
       "cost_per_night": 99
+    },
+    {
+      "place_id": 2,
+      "name": "aldi",
+      "accom_type": 3,
+      "area": 6,
+      "available_rooms": 0,
+      "cost_per_night": 1
     }
   ],
   "enquiries": [
@@ -58,6 +58,12 @@
       "booking_id": 1,
       "accom_name": "blue box",
       "duration": 30,
+      "special_req": ""
+    },
+    {
+      "booking_id": 2,
+      "accom_name": "aldi",
+      "duration": 3,
       "special_req": ""
     }
   ]

@@ -35,9 +35,9 @@ class Booking:
 
         if int(place_data['available_rooms']) < 1:
             # if the rooms available in the places user selected is less than 1
-            # allow user to select another place to book
+            # user must select another place to book
             print(f"*{place_data['name'].upper()}* is fully booked!")
-            Booking.make()
+            # Booking.make()
             return
 
         print(f"You have selected *{place_data['name'].upper()}*")
